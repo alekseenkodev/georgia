@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Грузія ✈️ — жеребкування чохлів</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Inter", "ui-sans-serif", "system-ui"] },
+          },
+        },
+      };
+    </script>
+    <style>
+      .bg-grid {
+        background-image: radial-gradient(
+          rgba(0, 0, 0, 0.06) 1px,
+          transparent 1px
+        );
+        background-size: 12px 12px;
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-dvh bg-gradient-to-br from-amber-50 via-white to-sky-50 text-slate-800"
+  >
+    <header class="max-w-5xl mx-auto px-4 sm:px-6 pt-10 pb-6">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">
+            Грузія ✈️ — жеребкування чохлів
+          </h1>
+          <p class="mt-2 text-slate-600 max-w-2xl">
+            «Паспорт є? Настрій є? Вино теж знайдеться!» — а в нас ще
+            <span class="font-semibold">спортивно-алкогольний забіг</span>.
+            Головне правило: не даруємо собі або своїй половинці, інакше штрафне
+            Сапераві 🍷
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 pb-24">
+      <section class="grid md:grid-cols-2 gap-6">
+        <!-- Admin inputs -->
+        <div
+          id="inputSection"
+          class="bg-white/80 backdrop-blur rounded-3xl border border-slate-200 p-5 md:p-6 shadow-sm"
+        >
+          <h2 class="text-lg font-semibold flex items-center gap-2">
+            👥 Учасники
+          </h2>
+          <p class="text-sm text-slate-600 mt-1">
+            По одному на рядок. Мінімум 3 особи. Для моделі телефона використовуй формат "Ім'я телефон: модель". (Бачить тільки організатор)
+          </p>
+          <textarea
+            id="participants"
+            class="mt-3 w-full min-h-44 rounded-2xl border border-slate-300 p-3"
+            placeholder="Іван
+Марія телефон: iPhone 13 Pro
+Андрій телефон: Samsung Galaxy S23
+Олена
+..."
+          ></textarea>
+
+          <div class="mt-6">
+            <h3 class="text-base font-semibold">
+              💞 Пари (щоб не дарували одне одному)
+            </h3>
+            <p class="text-sm text-slate-600 mt-1">
+              Формат: <code>Імʼя A - Імʼя B</code> по одному на рядок.
+            </p>
+            <textarea
+              id="pairs"
+              class="mt-3 w-full min-h-28 rounded-2xl border border-slate-300 p-3"
+              placeholder="Марія - Іван
+Олена - Сергій"
+            ></textarea>
+          </div>
+
+          <div class="mt-6 flex flex-wrap items-center gap-3">
+            <button
+              id="drawBtn"
+              class="px-4 py-2.5 rounded-2xl bg-sky-600 text-white font-medium hover:bg-sky-700 active:translate-y-px shadow"
+            >
+              Згенерувати жеребкування
+            </button>
+          </div>
+          <p class="mt-3 text-xs text-slate-500">
+            Порада: якщо учасників багато і пар теж — іноді рішення не існує.
+            Спробуй ще раз або трохи змініть пари.
+          </p>
+        </div>
+
+        <!-- Admin result -->
+        <div
+          class="bg-white/80 backdrop-blur rounded-3xl border border-slate-200 p-5 md:p-6 shadow-sm"
+        >
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-semibold">🎁 Результат</h2>
+            <div
+              id="seedTag"
+              class="hidden text-xs px-2 py-1 rounded-xl bg-amber-100 text-amber-900 border border-amber-200"
+            ></div>
+          </div>
+          <div id="result" class="mt-4 grid sm:grid-cols-2 gap-3"></div>
+          <div id="emptyState" class="mt-6 text-slate-500 text-sm">
+            Натискай «Згенерувати жеребкування», а потім — згенеруй персональні
+            посилання для кожного учасника.
+          </div>
+
+          <!-- Links area -->
+          <div id="linksWrap" class="mt-6 hidden">
+            <h3 class="font-semibold">🔗 Персональні посилання</h3>
+            <p class="text-sm text-slate-600 mt-1">
+              Надішли кожному своє посилання — там буде видно лише їхній
+              отримувач.
+            </p>
+            <div class="mt-3 overflow-x-auto">
+              <table
+                class="w-full text-sm border border-slate-200 rounded-2xl overflow-hidden"
+              >
+                <thead class="bg-slate-50 text-slate-600">
+                  <tr>
+                    <th class="text-left p-2">Учасник</th>
+                    <th class="text-left p-2">Отримає</th>
+                    <th class="text-left p-2">Посилання</th>
+                    <th class="text-left p-2">Дія</th>
+                  </tr>
+                </thead>
+                <tbody
+                  id="linksTbody"
+                  class="divide-y divide-slate-200"
+                ></tbody>
+              </table>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-3">
+              <button
+                id="downloadPublicBtn"
+                class="px-4 py-2.5 rounded-2xl bg-emerald-600 text-white font-medium hover:bg-emerald-700 shadow"
+              >
+                Завантажити сторінку результатів (result.html)
+              </button>
+              <button
+                id="copyAllBtn"
+                class="px-4 py-2.5 rounded-2xl bg-white border border-slate-300 font-medium hover:bg-slate-50"
+              >
+                Скопіювати всі посилання
+              </button>
+            </div>
+            <p class="mt-2 text-xs text-slate-500">
+              result.html — показує результат лише тим, у кого є
+              <span class="font-semibold">секретний токен</span> в адресі (після
+              #).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-8">
+        <div class="bg-grid rounded-3xl border border-slate-200 p-5 md:p-6">
+          <ul
+            class="mt-2 grid sm:grid-cols-2 lg:grid-cols-3 gap-2 text-sm text-slate-700"
+          >
+            <li>🍷 «За Грузію! Щоб ноги бігли швидше, ніж похмілля.»</li>
+            <li>
+              🛫 «Летимо перевіряти, чи працює гравітація після Сапераві.»
+            </li>
+            <li>🏆 «Три кроки до перемоги: вилетіти, випити, вижити.»</li>
+            <li>🏃‍♂️ «Біг у горах — це коли підйом триває рівно три тости.»</li>
+            <li>🍑 «Кавказькі персики — як ми: солодкі, але з характером.»</li>
+            <li>🍾 «В аеропорту тихо, доки ми не приїхали.»</li>
+            <li>🚴‍♂️ «Вино в пляшці — це теж спорт, бо його треба нести.»</li>
+            <li>🏔️ «Маршрут простий: готель → гори → винний бар.»</li>
+            <li>🥟 «Хінкалі — це кардіо для щелеп.»</li>
+            <li>
+              🥂 «Перший тост — за виліт, другий — щоб долетіли, третій — щоб
+              повернулися.»
+            </li>
+            <li>🛬 «М’яка посадка — це коли спиш вже на трапі.»</li>
+            <li>🍇 «Сапераві не питає, готовий ти чи ні.»</li>
+            <li>💃 «Грузинські танці: крок вліво і три ковтки вправо.»</li>
+            <li>🧳 «Головне — не загубити багаж і друга з бару.»</li>
+            <li>🧭 «Якщо заблукав — йди на звук тостів.»</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer
+      class="max-w-5xl mx-auto px-4 sm:px-6 pb-10 text-center text-xs text-slate-500"
+    >
+      З любовʼю до подорожей і друзів • «Головне — не загубити багаж і почуття
+      гумору» 💙
+    </footer>
+
+    <script>
+      // ===== Helpers =====
+      function mulberry32(a) {
+        return function () {
+          let t = (a += 0x6d2b79f5);
+          t = Math.imul(t ^ (t >>> 15), t | 1);
+          t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      function shuffle(arr, rand) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(rand() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
+      const norm = (s) => s.trim().replace(/\s+/g, " ");
+      function parseParticipants(raw) {
+        function parseLine(line) {
+          line = norm(line);
+          if (!line) return null;
+          
+          // Check for "телефон:" pattern first
+          const phoneMatch = line.match(/^(.+?)\s+телефон:\s*(.+)$/i);
+          if (phoneMatch) {
+            return { name: norm(phoneMatch[1]), model: norm(phoneMatch[2]) };
+          }
+          
+          // 1) "Name (Model)"
+          const mParen = line.match(/^(.+?)\s*\((.+?)\)\s*$/);
+          if (mParen) {
+            return { name: norm(mParen[1]), model: norm(mParen[2]) };
+          }
+          // 2) "Name - Model" / "Name — Model" / "Name – Model" / "Name | Model"
+          const parts = line.split(/\s*[|—–-]\s*/);
+          if (parts.length >= 2) {
+            return {
+              name: norm(parts[0]),
+              model: norm(parts.slice(1).join(" - ")),
+            };
+          }
+          // 3) Just a name
+          return { name: line, model: "" };
+        }
+        return raw
+          .split(/\n|,/)
+          .map(parseLine)
+          .filter(Boolean)
+          .filter((p) => p.name);
+      }
+      function parsePairs(raw) {
+        const pairs = [];
+        raw.split(/\n/).forEach((line) => {
+          if (!line.trim()) return;
+          const m = line.split(/-|—|–|:/);
+          if (m.length >= 2) {
+            const a = norm(m[0]);
+            const b = norm(m.slice(1).join("-"));
+            if (a && b) pairs.push([a, b]);
+          }
+        });
+        return pairs;
+      }
+      function buildForbidden(names, pairs) {
+        const idx = new Map(names.map((n, i) => [n, i]));
+        const forb = Array.from({ length: names.length }, () => new Set());
+        names.forEach((_, i) => forb[i].add(i));
+        for (const [a, b] of pairs) {
+          if (!idx.has(a) || !idx.has(b)) continue;
+          const i = idx.get(a),
+            j = idx.get(b);
+          forb[i].add(j);
+          forb[j].add(i);
+        }
+        return forb;
+      }
+      function secretSanta(names, forb, rand) {
+        const n = names.length;
+        const options = Array.from({ length: n }, (_, i) => {
+          const o = [];
+          for (let j = 0; j < n; j++) if (!forb[i].has(j)) o.push(j);
+          return o;
+        });
+        for (let i = 0; i < n; i++) if (options[i].length === 0) return null;
+        const order = Array.from({ length: n }, (_, i) => i).sort(
+          (a, b) => options[a].length - options[b].length
+        );
+        const used = Array(n).fill(false);
+        const recv = Array(n).fill(-1);
+        function dfs(pos) {
+          if (pos === n) return true;
+          const i = order[pos];
+          const pool = options[i].filter((j) => !used[j]);
+          if (pool.length === 0) return false;
+          shuffle(pool, rand);
+          for (const j of pool) {
+            used[j] = true;
+            recv[i] = j;
+            if (dfs(pos + 1)) return true;
+            used[j] = false;
+            recv[i] = -1;
+          }
+          return false;
+        }
+        return dfs(0) ? recv : null;
+      }
+      function uid() {
+        const arr = new Uint8Array(16);
+        if (crypto?.getRandomValues) crypto.getRandomValues(arr);
+        else {
+          const r = mulberry32(Date.now() >>> 0);
+          for (let i = 0; i < 16; i++) arr[i] = Math.floor(r() * 256);
+        }
+        return Array.from(arr, (b) => b.toString(16).padStart(2, "0")).join("");
+      }
+
+      // ===== UI Refs =====
+      const els = {
+        participants: document.getElementById("participants"),
+        pairs: document.getElementById("pairs"),
+        drawBtn: document.getElementById("drawBtn"),
+        result: document.getElementById("result"),
+        emptyState: document.getElementById("emptyState"),
+        seedTag: document.getElementById("seedTag"),
+        linksWrap: document.getElementById("linksWrap"),
+        linksTbody: document.getElementById("linksTbody"),
+        downloadPublicBtn: document.getElementById("downloadPublicBtn"),
+        copyAllBtn: document.getElementById("copyAllBtn"),
+      };
+
+      let current = {
+        names: [], // participant names only
+        models: [], // phone models aligned by index
+        pairs: [],
+        recv: null,
+        seed: null,
+        tokens: [],
+      };
+
+      function showResult(names, recvIdx, seed) {
+        const box = els.result,
+          empty = els.emptyState,
+          seedTag = els.seedTag;
+        box.innerHTML = "";
+        if (!recvIdx) {
+          empty.classList.remove("hidden");
+          seedTag.classList.add("hidden");
+          return;
+        }
+        empty.classList.add("hidden");
+        seedTag.textContent = `seed: ${seed}`;
+        seedTag.classList.remove("hidden");
+        const cards = [];
+        for (let i = 0; i < names.length; i++) {
+          const giver = names[i];
+          const rIdx = recvIdx[i];
+          const receiver = names[rIdx];
+          const receiverModel = (current.models || [])[rIdx] || "";
+          cards.push(`<div class="rounded-2xl border border-slate-200 bg-white p-3 flex items-center gap-3 shadow-sm">
+          <div class="text-2xl">🍷</div>
+          <div class="min-w-0"><div class="text-sm text-slate-500">Дарує</div><div class="font-semibold truncate">${giver}</div></div>
+          <div class="mx-auto text-slate-400">→</div>
+          <div class="min-w-0 text-right">
+            <div class="text-sm text-slate-500">Отримає</div>
+            <div class="font-semibold truncate">${receiver}</div>
+            ${
+              receiverModel
+                ? `<div class="text-xs text-slate-500 truncate">${receiverModel}</div>`
+                : ``
+            }
+          </div>
+        </div>`);
+        }
+        box.innerHTML = cards.join("");
+      }
+
+      function freezeInputs() {
+        els.participants.disabled = true;
+        els.pairs.disabled = true;
+        els.drawBtn.disabled = true;
+        els.participants.classList.add("opacity-60", "cursor-not-allowed");
+        els.pairs.classList.add("opacity-60", "cursor-not-allowed");
+      }
+
+      function buildLinksTable() {
+        const base = "result.html#";
+        const rows = [];
+        const links = [];
+        for (let i = 0; i < current.names.length; i++) {
+          const giver = current.names[i];
+          const rIdx = current.recv[i];
+          const receiver = current.names[rIdx];
+          const receiverModel = (current.models || [])[rIdx] || "";
+          const token = current.tokens[i];
+          const url = base + token;
+          links.push(`${giver}: ${url}`);
+          rows.push(`<tr>
+          <td class="p-2">${giver}</td>
+          <td class="p-2">
+            <div class="font-medium">${receiver}</div>
+            ${
+              receiverModel
+                ? `<div class="text-xs text-slate-500">${receiverModel}</div>`
+                : ``
+            }
+          </td>
+          <td class="p-2 break-all"><span class="inline-flex items-center gap-2">${url}</span></td>
+          <td class="p-2"><button data-url="${url}" class="copyOne px-3 py-1.5 rounded-xl bg-white border border-slate-300 hover:bg-slate-50 text-xs">Скопіювати</button></td>
+        </tr>`);
+        }
+        els.linksTbody.innerHTML = rows.join("");
+        els.linksWrap.classList.remove("hidden");
+
+        // копирование по кнопке
+        document.querySelectorAll(".copyOne").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            try {
+              await navigator.clipboard.writeText(btn.dataset.url);
+              btn.textContent = "Скопійовано!";
+              setTimeout(() => (btn.textContent = "Скопіювати"), 1200);
+            } catch {
+              alert("Не вдалося скопіювати :(");
+            }
+          });
+        });
+        // копирование всех ссылок
+        els.copyAllBtn.onclick = async () => {
+          try {
+            await navigator.clipboard.writeText(links.join("\n"));
+            alert("Усі посилання скопійовано");
+          } catch {
+            alert("Не вдалося скопіювати :(");
+          }
+        };
+      }
+
+      function downloadResultHtml() {
+        // карта токенов: token -> { giver, receiver, receiverModel }
+        const map = Object.fromEntries(
+          current.names.map((g, i) => {
+            const rIdx = current.recv[i];
+            return [
+              current.tokens[i],
+              {
+                giver: g,
+                receiver: current.names[rIdx],
+                receiverModel: (current.models || [])[rIdx] || "",
+              },
+            ];
+          })
+        );
+        const payload = JSON.stringify(map);
+
+        const html =
+          `<!doctype html>
+<html lang="uk"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Грузія ✈️ — твій подарунок</title>
+<script src="https://cdn.tailwindcss.com"><\/script>
+<style>body{min-height:100dvh}</style>
+</head><body class="bg-gradient-to-br from-white via-amber-50 to-sky-50 text-slate-800">
+<main class="max-w-xl mx-auto p-6">
+  <div class="rounded-3xl border border-slate-200 bg-white/80 backdrop-blur p-6 shadow-sm">
+    <h1 class="text-2xl font-bold">Кому даруєш 🎁</h1>
+    <p class="mt-2 text-slate-600 text-sm">Цю сторінку видно тільки тим, хто має секретне посилання.</p>
+    <div id="box" class="mt-6"></div>
+    <div class="mt-8 p-4 rounded-2xl bg-amber-50 border border-amber-200">
+      <h3 class="text-sm font-semibold text-amber-800 mb-3">🍷 Мотиваційні фрази від команди</h3>
+      <div class="grid gap-2 text-xs text-amber-700">
+        <div>🍷 «За Грузію! Щоб ноги бігли швидше, ніж похмілля.»</div>
+        <div>🛫 «Летимо перевіряти, чи працює гравітація після Сапераві.»</div>
+        <div>🏆 «Три кроки до перемоги: вилетіти, випити, вижити.»</div>
+        <div>🏃‍♂️ «Біг у горах — це коли підйом триває рівно три тости.»</div>
+        <div>🍑 «Кавказькі персики — як ми: солодкі, але з характером.»</div>
+        <div>🍾 «В аеропорту тихо, доки ми не приїхали.»</div>
+      </div>
+    </div>
+    <div class="mt-6 text-xs text-slate-500">Порада: не діліться посиланням, якщо не хочете спойлерів 😉</div>
+  </div>
+</main>
+<scr` +
+          `ipt>
+const MAP = ${payload};
+function render(){
+  const token = location.hash.replace('#','').trim();
+  const box = document.getElementById('box');
+  if(!token || !MAP[token]){ box.innerHTML = '<div class="text-slate-600">Посилання некоректне або застаріле.</div>'; return; }
+  const {giver, receiver, receiverModel} = MAP[token];
+  box.innerHTML = \`<div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <div class="text-3xl">🧳</div>
+      <div>
+        <div class="text-slate-500 text-sm">Привіт, <span class="font-semibold">\${giver}</span>!</div>
+        <div class="mt-1">
+          <div class="text-slate-500 text-sm">Ти даруєш чохол для:</div>
+          <div class="text-lg font-semibold underline decoration-dotted">\${receiver}</div>
+          \${receiverModel ? \`<div class="mt-1 px-2 py-1 bg-blue-50 border border-blue-200 rounded-lg inline-block"><span class="text-blue-600 text-xs font-medium">📱 \${receiverModel}</span></div>\` : ''}
+        </div>
+      </div>
+    </div>
+    <div class="text-sm text-slate-600">Тс-с! Не показуй цю сторінку іншим 😉</div>
+  </div>\`;
+}
+window.addEventListener('hashchange', render); render();
+<\/script>
+</body></html>`;
+
+        const blob = new Blob([html], { type: "text/html" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "result.html";
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function runDraw() {
+        const people = parseParticipants(els.participants.value);
+        const names = people.map((p) => p.name);
+        const pairs = parsePairs(els.pairs.value);
+        if (names.length < 3) {
+          alert("Потрібно щонайменше 3 учасники.");
+          return;
+        }
+
+        const validPairs = pairs.filter(
+          ([a, b]) => names.includes(a) && names.includes(b)
+        );
+        const forb = buildForbidden(names, validPairs);
+        const rng = mulberry32(Date.now() >>> 0);
+
+        let recv = null;
+        for (let k = 0; k < 200 && !recv; k++) {
+          for (let s = 0; s < k % 7; s++) rng();
+          recv = secretSanta(names, forb, rng);
+        }
+        if (!recv) {
+          alert("Не вдалося створити розподіл. Змініть пари.");
+          return;
+        }
+
+        current = {
+          names,
+          models: people.map((p) => p.model || ""),
+          pairs: validPairs,
+          recv,
+          seed: Date.now() >>> 0,
+          tokens: [],
+        };
+        showResult(names, recv, current.seed);
+
+        // блокируем ввод
+        els.participants.disabled = true;
+        els.pairs.disabled = true;
+        els.drawBtn.disabled = true;
+        els.participants.classList.add("opacity-60", "cursor-not-allowed");
+        els.pairs.classList.add("opacity-60", "cursor-not-allowed");
+
+        // генерим токены и таблицу ссылок
+        current.tokens = current.names.map(() => uid());
+        buildLinksTable();
+      }
+
+      els.drawBtn.addEventListener("click", runDraw);
+      els.downloadPublicBtn.addEventListener("click", () => {
+        if (!current.recv || !current.tokens.length) {
+          alert("Спочатку згенеруйте жеребкування та створіть персональні посилання!");
+          return;
+        }
+        downloadResultHtml();
+      });
+    </script>
+  </body>
+</html>

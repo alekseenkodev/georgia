@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="uk"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Грузія ✈️ — твій подарунок</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>body{min-height:100dvh}</style>
+</head><body class="bg-gradient-to-br from-white via-amber-50 to-sky-50 text-slate-800">
+<main class="max-w-xl mx-auto p-6">
+  <div class="rounded-3xl border border-slate-200 bg-white/80 backdrop-blur p-6 shadow-sm">
+    <h1 class="text-2xl font-bold">Кому даруєш 🎁</h1>
+    <p class="mt-2 text-slate-600 text-sm">Цю сторінку видно тільки тим, хто має секретне посилання.</p>
+    <div id="box" class="mt-6"></div>
+    <div class="mt-8 p-4 rounded-2xl bg-amber-50 border border-amber-200">
+      <h3 class="text-sm font-semibold text-amber-800 mb-3">🍷 Мотиваційні фрази від команди</h3>
+      <div class="grid gap-2 text-xs text-amber-700">
+        <div>🍷 «За Грузію! Щоб ноги бігли швидше, ніж похмілля.»</div>
+        <div>🛫 «Летимо перевіряти, чи працює гравітація після Сапераві.»</div>
+        <div>🏆 «Три кроки до перемоги: вилетіти, випити, вижити.»</div>
+        <div>🏃‍♂️ «Біг у горах — це коли підйом триває рівно три тости.»</div>
+        <div>🍑 «Кавказькі персики — як ми: солодкі, але з характером.»</div>
+        <div>🍾 «В аеропорту тихо, доки ми не приїхали.»</div>
+      </div>
+    </div>
+    <div class="mt-6 text-xs text-slate-500">Порада: не діліться посиланням, якщо не хочете спойлерів 😉</div>
+  </div>
+</main>
+<script>
+const MAP = {"9232fd2a5353b8de63b27623d2f294dc":{"giver":"Саня А Iphone 13 pro max","receiver":"Денчик","receiverModel":""},"d1955352be4f7823d3c91674b4868a12":{"giver":"Аня Iphone 16 pro max","receiver":"Влад","receiverModel":""},"8be05c8167c91f61c9129185c5a2279f":{"giver":"Алла","receiver":"Наталі","receiverModel":""},"4123e7269f4a33dd8be29312f1a2fb9a":{"giver":"Андрій","receiver":"Макс","receiverModel":""},"c848a2f1fa5f68c2b43b086068e5dd5e":{"giver":"Лена","receiver":"Саша Д","receiverModel":""},"01564c3aa40c21fa301fd29ef62000f4":{"giver":"Саша Д","receiver":"Віка","receiverModel":""},"f7396cdf1250bade84881b3a177185e4":{"giver":"Женя","receiver":"Лена","receiverModel":""},"6b8de7170e9dfa86c8a5977471c9e36e":{"giver":"Іра Ж","receiver":"Іра Н","receiverModel":""},"b0979c02e360a0d7a102e6777fd46198":{"giver":"Віка","receiver":"Даня","receiverModel":""},"1cf5ea79b9868faded9f11a9a4f7a9f0":{"giver":"Жанна","receiver":"Іра Ж","receiverModel":""},"96b45b032272c1414fd22486aecaafb9":{"giver":"Наталі","receiver":"Саня А Iphone 13 pro max","receiverModel":""},"18a30b15ea206a5ab809597f68641af9":{"giver":"Еліна","receiver":"Сергій","receiverModel":""},"40997f6e8d4c6b50a4e1677de33a428d":{"giver":"Даня","receiver":"Андрій","receiverModel":""},"124ad41ec62c91179ac474ae78af61fc":{"giver":"Іра Н","receiver":"Женя","receiverModel":""},"128f7b83c80f4e76bafea4c02d7aea8b":{"giver":"Макс","receiver":"Жанна","receiverModel":""},"ba1476adb39e6f513939084c9eb615e5":{"giver":"Влад","receiver":"Алла","receiverModel":""},"a4c044698f498efb85083820cc6a173e":{"giver":"Сергій","receiver":"Аня Iphone 16 pro max","receiverModel":""},"c5d2e61e294f7ca44814f44f9604351c":{"giver":"Денчик","receiver":"Еліна","receiverModel":""}};
+function render(){
+  const token = location.hash.replace('#','').trim();
+  const box = document.getElementById('box');
+  if(!token || !MAP[token]){ box.innerHTML = '<div class="text-slate-600">Посилання некоректне або застаріле.</div>'; return; }
+  const {giver, receiver, receiverModel} = MAP[token];
+  box.innerHTML = `<div class="space-y-3">
+    <div class="flex items-center gap-3">
+      <div class="text-3xl">🧳</div>
+      <div>
+        <div class="text-slate-500 text-sm">Привіт, <span class="font-semibold">${giver}</span>!</div>
+        <div class="mt-1">
+          <div class="text-slate-500 text-sm">Ти даруєш чохол для:</div>
+          <div class="text-lg font-semibold underline decoration-dotted">${receiver}</div>
+          ${receiverModel ? `<div class="text-sm text-slate-500">${receiverModel}</div>` : ''}
+        </div>
+      </div>
+    </div>
+    <div class="text-sm text-slate-600">Тс-с! Не показуй цю сторінку іншим 😉</div>
+  </div>`;
+}
+window.addEventListener('hashchange', render); render();
+</script>
+</body></html>
