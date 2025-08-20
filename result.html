@@ -1,36 +1,153 @@
-<!doctype html>
-<html lang="uk"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Грузія ✈️ — твій подарунок</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>body{min-height:100dvh}</style>
-</head><body class="bg-gradient-to-br from-white via-amber-50 to-sky-50 text-slate-800">
-<main class="max-w-xl mx-auto p-6">
-  <div class="rounded-3xl border border-slate-200 bg-white/80 backdrop-blur p-6 shadow-sm">
-    <h1 class="text-2xl font-bold">Кому даруєш 🎁</h1>
-    <p class="mt-2 text-slate-600 text-sm">Цю сторінку видно тільки тим, хто має секретне посилання.</p>
-    <div id="box" class="mt-6"></div>
-    <div class="mt-8 p-4 rounded-2xl bg-amber-50 border border-amber-200">
-      <h3 class="text-sm font-semibold text-amber-800 mb-3">🍷 Мотиваційні фрази від команди</h3>
-      <div class="grid gap-2 text-xs text-amber-700">
-        <div>🍷 «За Грузію! Щоб ноги бігли швидше, ніж похмілля.»</div>
-        <div>🛫 «Летимо перевіряти, чи працює гравітація після Сапераві.»</div>
-        <div>🏆 «Три кроки до перемоги: вилетіти, випити, вижити.»</div>
-        <div>🏃‍♂️ «Біг у горах — це коли підйом триває рівно три тости.»</div>
-        <div>🍑 «Кавказькі персики — як ми: солодкі, але з характером.»</div>
-        <div>🍾 «В аеропорту тихо, доки ми не приїхали.»</div>
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Грузія ✈️ — твій подарунок</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        min-height: 100dvh;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-white via-amber-50 to-sky-50 text-slate-800"
+  >
+    <main class="max-w-xl mx-auto p-6">
+      <div
+        class="rounded-3xl border border-slate-200 bg-white/80 backdrop-blur p-6 shadow-sm"
+      >
+        <h1 class="text-2xl font-bold">Кому даруєш 🎁</h1>
+        <p class="mt-2 text-slate-600 text-sm">
+          Цю сторінку видно тільки тим, хто має секретне посилання.
+        </p>
+        <div id="box" class="mt-6"></div>
+        <div class="mt-8 p-4 rounded-2xl bg-amber-50 border border-amber-200">
+          <h3 class="text-sm font-semibold text-amber-800 mb-3">
+            🍷 Мотиваційні фрази від команди
+          </h3>
+          <div class="grid gap-2 text-xs text-amber-700">
+            <div>🍷 «За Грузію! Щоб ноги бігли швидше, ніж похмілля.»</div>
+            <div>
+              🛫 «Летимо перевіряти, чи працює гравітація після Сапераві.»
+            </div>
+            <div>🏆 «Три кроки до перемоги: вилетіти, випити, вижити.»</div>
+            <div>🏃‍♂️ «Біг у горах — це коли підйом триває рівно три тости.»</div>
+            <div>
+              🍑 «Кавказькі персики — як ми: солодкі, але з характером.»
+            </div>
+            <div>🍾 «В аеропорту тихо, доки ми не приїхали.»</div>
+          </div>
+        </div>
+        <div class="mt-6 text-xs text-slate-500">
+          Порада: не діліться посиланням, якщо не хочете спойлерів 😉
+        </div>
       </div>
-    </div>
-    <div class="mt-6 text-xs text-slate-500">Порада: не діліться посиланням, якщо не хочете спойлерів 😉</div>
-  </div>
-</main>
-<script>
-const MAP = {"1dae6c00dcfab6f3b5aa426aa61c058b":{"giver":"Саня Алексеенко","receiver":"Денчик","receiverModel":"Iphone 15 Pro Max"},"320e60ea3b386b5c3f1321651e46488b":{"giver":"Аня","receiver":"Еліна","receiverModel":"Iphone 16 Pro Max"},"738d64f46eba8cebdabba9fd2cf7cf71":{"giver":"Алла","receiver":"Жанна","receiverModel":"Iphone 15 Pro Max"},"0d6ed73199fa146bf4072d930c719b36":{"giver":"Андрій","receiver":"Женя","receiverModel":"Iphone 12 Pro Max"},"c4a16fff97915cb434239b206bb2f460":{"giver":"Лена","receiver":"Сергій","receiverModel":"Iphone 15 Pro Max"},"23864b813b24cd2727175d137e443020":{"giver":"Саша Донченко","receiver":"Аня","receiverModel":"Iphone 16 Pro Max"},"f31b26cf5aec0636fe55f9be2a62f0ea":{"giver":"Женя","receiver":"Даня","receiverModel":"Iphone 16 Pro Max"},"5fefb2186ce6a67bdea04d2481c925a2":{"giver":"Іра Жоржа","receiver":"Іра Настич телефон:","receiverModel":""},"53d77ac16b3759daf446c687ae90b242":{"giver":"Віка","receiver":"Саня Алексеенко","receiverModel":"Iphone 13 Pro Max"},"8bf976bb5946cdc5c593a3434b1a91cc":{"giver":"Жанна","receiver":"Лена","receiverModel":"Iphone 15 Pro Max"},"0972b5d96e872ce0b2374b395d8867b4":{"giver":"Наталі","receiver":"Іра Жоржа","receiverModel":"Iphone 16 Pro Max"},"ee012980274e9d86bd0fe847afefd93a":{"giver":"Еліна","receiver":"Віка","receiverModel":"Iphone 15 Pro Max"},"2d70cca5d966a6e8bef175d9895a6547":{"giver":"Даня","receiver":"Саша Донченко","receiverModel":"Iphone 16 Pro"},"63f983f2c70d0261cca427df219408a7":{"giver":"Іра Настич телефон:","receiver":"Андрій","receiverModel":"Iphone 13 Pro Max"},"04b7df2ccbf7e4946945c2cb037b1071":{"giver":"Макс","receiver":"Влад","receiverModel":"Iphone 16 Pro Max"},"ffa0d43d666888a21651030b4fc18d0d":{"giver":"Влад","receiver":"Алла","receiverModel":"Iphone 13 Pro Max"},"6ff9e4265d0cd893d702a006d8c68faa":{"giver":"Сергій","receiver":"Макс","receiverModel":"Iphone 16 Pro Max"},"a5e3c35d753d5c103c865f6ffa8d981e":{"giver":"Денчик","receiver":"Наталі","receiverModel":"Iphone 16 Pro"}};
-function render(){
-  const token = location.hash.replace('#','').trim();
-  const box = document.getElementById('box');
-  if(!token || !MAP[token]){ box.innerHTML = '<div class="text-slate-600">Посилання некоректне або застаріле.</div>'; return; }
-  const {giver, receiver, receiverModel} = MAP[token];
-  box.innerHTML = `<div class="space-y-3">
+    </main>
+    <script>
+      const MAP = {
+        "1dae6c00dcfab6f3b5aa426aa61c058b": {
+          giver: "Саня Алексеенко",
+          receiver: "Денчик",
+          receiverModel: "Iphone 15 Pro Max",
+        },
+        "320e60ea3b386b5c3f1321651e46488b": {
+          giver: "Аня",
+          receiver: "Еліна",
+          receiverModel: "Iphone 16 Pro Max",
+        },
+        "738d64f46eba8cebdabba9fd2cf7cf71": {
+          giver: "Алла",
+          receiver: "Жанна",
+          receiverModel: "Iphone 15 Pro Max",
+        },
+        "0d6ed73199fa146bf4072d930c719b36": {
+          giver: "Андрій",
+          receiver: "Женя",
+          receiverModel: "Iphone 12 Pro Max",
+        },
+        c4a16fff97915cb434239b206bb2f460: {
+          giver: "Лена",
+          receiver: "Сергій",
+          receiverModel: "Iphone 15 Pro Max",
+        },
+        "23864b813b24cd2727175d137e443020": {
+          giver: "Саша Донченко",
+          receiver: "Аня",
+          receiverModel: "Iphone 16 Pro Max",
+        },
+        f31b26cf5aec0636fe55f9be2a62f0ea: {
+          giver: "Женя",
+          receiver: "Даня",
+          receiverModel: "Iphone 16 Pro Max",
+        },
+        "5fefb2186ce6a67bdea04d2481c925a2": {
+          giver: "Іра Жоржа",
+          receiver: "Іра Настич телефон:",
+          receiverModel: "Iphone XR",
+        },
+        "53d77ac16b3759daf446c687ae90b242": {
+          giver: "Віка",
+          receiver: "Саня Алексеенко",
+          receiverModel: "Iphone 13 Pro Max",
+        },
+        "8bf976bb5946cdc5c593a3434b1a91cc": {
+          giver: "Жанна",
+          receiver: "Лена",
+          receiverModel: "Iphone 15 Pro Max",
+        },
+        "0972b5d96e872ce0b2374b395d8867b4": {
+          giver: "Наталі",
+          receiver: "Іра Жоржа",
+          receiverModel: "Iphone 16 Pro Max",
+        },
+        ee012980274e9d86bd0fe847afefd93a: {
+          giver: "Еліна",
+          receiver: "Віка",
+          receiverModel: "Iphone 15 Pro Max",
+        },
+        "2d70cca5d966a6e8bef175d9895a6547": {
+          giver: "Даня",
+          receiver: "Саша Донченко",
+          receiverModel: "Iphone 16 Pro",
+        },
+        "63f983f2c70d0261cca427df219408a7": {
+          giver: "Іра Настич телефон:",
+          receiver: "Андрій",
+          receiverModel: "Iphone 13 Pro Max",
+        },
+        "04b7df2ccbf7e4946945c2cb037b1071": {
+          giver: "Макс",
+          receiver: "Влад",
+          receiverModel: "Iphone 16 Pro Max",
+        },
+        ffa0d43d666888a21651030b4fc18d0d: {
+          giver: "Влад",
+          receiver: "Алла",
+          receiverModel: "Iphone 13 Pro Max",
+        },
+        "6ff9e4265d0cd893d702a006d8c68faa": {
+          giver: "Сергій",
+          receiver: "Макс",
+          receiverModel: "Iphone 16 Pro Max",
+        },
+        a5e3c35d753d5c103c865f6ffa8d981e: {
+          giver: "Денчик",
+          receiver: "Наталі",
+          receiverModel: "Iphone 16 Pro",
+        },
+      };
+      function render() {
+        const token = location.hash.replace("#", "").trim();
+        const box = document.getElementById("box");
+        if (!token || !MAP[token]) {
+          box.innerHTML =
+            '<div class="text-slate-600">Посилання некоректне або застаріле.</div>';
+          return;
+        }
+        const { giver, receiver, receiverModel } = MAP[token];
+        box.innerHTML = `<div class="space-y-3">
     <div class="flex items-center gap-3">
       <div class="text-3xl">🧳</div>
       <div>
@@ -38,13 +155,19 @@ function render(){
         <div class="mt-1">
           <div class="text-slate-500 text-sm">Ти даруєш чохол для:</div>
           <div class="text-lg font-semibold underline decoration-dotted">${receiver}</div>
-          ${receiverModel ? `<div class="mt-1 px-2 py-1 bg-blue-50 border border-blue-200 rounded-lg inline-block"><span class="text-blue-600 text-xs font-medium">📱 ${receiverModel}</span></div>` : ''}
+          ${
+            receiverModel
+              ? `<div class="mt-1 px-2 py-1 bg-blue-50 border border-blue-200 rounded-lg inline-block"><span class="text-blue-600 text-xs font-medium">📱 ${receiverModel}</span></div>`
+              : ""
+          }
         </div>
       </div>
     </div>
     <div class="text-sm text-slate-600">Тс-с! Не показуй цю сторінку іншим 😉</div>
   </div>`;
-}
-window.addEventListener('hashchange', render); render();
-</script>
-</body></html>
+      }
+      window.addEventListener("hashchange", render);
+      render();
+    </script>
+  </body>
+</html>
